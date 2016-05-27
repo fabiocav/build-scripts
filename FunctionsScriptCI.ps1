@@ -46,17 +46,17 @@ Function ShouldEnableEndToEnd()
 $env:Path="c:\tools\php;c:\python35;C:\Program Files (x86)\Microsoft SDKs\F#\4.0\Framework\v4.0;"+$env:Path
 
 # If this is a PR, check if we're supposed to run E2E tests
-if ($env:APPVEYOR_PULL_REQUEST_NUMBER)
-{
-    Write-Host "Building Pull Request #"$env:APPVEYOR_PULL_REQUEST_NUMBER -ForegroundColor Gray
-    
-    if (ShouldEnableEndToEnd)
-    {
-        EnableEndToEndTests
-    }
-}
-else
-{
-    Write-Host "Building Branch Commit" -ForegroundColor Gray
+#if ($env:APPVEYOR_PULL_REQUEST_NUMBER)
+#{
+#    Write-Host "Building Pull Request #"$env:APPVEYOR_PULL_REQUEST_NUMBER -ForegroundColor Gray
+#    
+#    if (ShouldEnableEndToEnd)
+#    {
+#        EnableEndToEndTests
+#    }
+#}
+#else
+#{
+#    Write-Host "Building Branch Commit" -ForegroundColor Gray
     EnableEndToEndTests
-}
+#}
