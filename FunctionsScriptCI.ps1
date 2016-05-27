@@ -6,7 +6,7 @@
 
 Function ShouldEnableEndToEnd()
 {
-     $buildconfig = Get-Content BuildConfig.json | ConvertFrom-Json
+     $buildconfig = ConvertFrom-Json (Invoke-WebRequest -Uri https://raw.githubusercontent.com/fabiocav/build-scripts/master/BuildConfig.json).Content
 
      # First, check if the author is one of our known users
      # We should eventually get the users from the appropriate team directly from GH, but will need credentials with access
