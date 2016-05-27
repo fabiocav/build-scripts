@@ -10,6 +10,8 @@ Function ShouldEnableEndToEnd()
 
      # First, check if the author is one of our known users
      # We should eventually get the users from the appropriate team directly from GH, but will need credentials with access
+     Write-Host "Commit Author: " -ForegroundColor Cyan -NoNewline
+     Write-Host $env:APPVEYOR_REPO_COMMIT_AUTHOR -ForegroundColor Green
      if ($buildconfig.EndToEndTestUsers.Contains($env:APPVEYOR_REPO_COMMIT_AUTHOR))
      {
        Write-Host "Full CI triggered by user: " -ForegroundColor Cyan -NoNewline
@@ -29,9 +31,9 @@ Function ShouldEnableEndToEnd()
         {
             Write-Host "Full CI triggered by PR label(s): " -ForegroundColor Cyan -NoNewline
             Write-Host ($labelMatches -join ", ")  -ForegroundColor Green
-        }
 
-        return $true
+
+        }
      }
 
      return $false
