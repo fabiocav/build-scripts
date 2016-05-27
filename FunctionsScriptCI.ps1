@@ -6,24 +6,27 @@
 
 Function ShouldEnableEndToEnd()
 {
+     #$buildconfig = Get-Content BuildConfig.json | ConvertFrom-Json
      $buildconfig = ConvertFrom-Json (Invoke-WebRequest -Uri https://raw.githubusercontent.com/fabiocav/build-scripts/master/BuildConfig.json).Content
+     $pruri = "https://api.github.com/repos/azure/azure-webjobs-sdk-script/issues/"+$env:APPVEYOR_PULL_REQUEST_NUMBER
+     $pr = ConvertFrom-Json (Invoke-WebRequest -Uri $pruri).Content
 
      # First, check if the author is one of our known users
      # We should eventually get the users from the appropriate team directly from GH, but will need credentials with access
-     Write-Host "Commit Author: " -ForegroundColor Cyan -NoNewline
-     Write-Host $env:APPVEYOR_REPO_COMMIT_AUTHOR -ForegroundColor Green
-     if ($buildconfig.EndToEndTestUsers.Contains($env:APPVEYOR_REPO_COMMIT_AUTHOR))
+     Write-Host "PR author: " -ForegroundColor Cyan -NoNewline
+     Write-Host $pr.user.login -ForegroundColor Green
+     if ($buildconfig.EndToEndTestUsers.Contains($pr.user.login))
      {
        Write-Host "Full CI triggered by user: " -ForegroundColor Cyan -NoNewline
-       Write-Host $env:APPVEYOR_REPO_COMMIT_AUTHOR -ForegroundColor Green
+       Write-Host $pr.user.login -ForegroundColor Green
        return $true
      }
      else
      {
         Write-Host "Checking PR labels..." -ForegroundColor Green
         # Check if the PR has a build label
-        $uri = "https://api.github.com/repos/azure/azure-webjobs-sdk-script/issues/"+$env:APPVEYOR_PULL_REQUEST_NUMBER+"/labels"
-        $prlabels = ConvertFrom-Json (Invoke-WebRequest -Uri $uri).Content | ForEach-Object {$_.name}
+        
+        $prlabels = $pr.labels | ForEach-Object {$_.name}
 
         $labelMatches = Compare-Object -ExcludeDifferent -IncludeEqual $prlabels $buildconfig.EndToEndTestLabels | ForEach-Object {$_.InputObject}
         
