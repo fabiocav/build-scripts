@@ -42,6 +42,8 @@ Function ShouldEnableEndToEnd()
      return $false
 }
 
+Write-Host "From script" $Env:AzureT
+
 # Set path to include PHP, Python and F#
 $env:Path="c:\tools\php;c:\python35;C:\Program Files (x86)\Microsoft SDKs\F#\4.0\Framework\v4.0;"+$env:Path
 
