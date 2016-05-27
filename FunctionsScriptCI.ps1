@@ -1,7 +1,7 @@
 ﻿Function EnableEndToEndTests()
 {
     Write-Host "E2E tests enabled" -ForegroundColor Yellow
-    Get-ChildItem Env: | Where-Object {$_.Name -like 'AZFC_*'} | ForEach-Object {[Environment]::SetEnvironmentVariable($_.Name.SubString(5), $_.Value )}
+    Get-ChildItem Env: | Where-Object {$_.Name -like 'AZFC_*'} | ForEach-Object {[Environment]::SetEnvironmentVariable("AzureWebJobs" + $_.Name.SubString(5), $_.Value )}
 }
 
 Function ShouldEnableEndToEnd()
