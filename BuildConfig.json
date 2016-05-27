@@ -1,0 +1,23 @@
+{
+    "EndToEndTestUsers": [
+        "akurmi",
+        "alrod",
+        "brettsam",
+        "christopheranderson",
+        "davidebbo",
+        "emilcicos",
+        "fabiocav",
+        "galiniliev",
+        "mathewc",
+        "mattchenderson",
+        "MikeStall",
+        "paulbatum",
+        "pragnagopa",
+        "safihamid",
+        "shobak101",
+        "soninaren",
+        "tohling",
+        "Tuesdaysgreen"
+        ],
+    "EndToEndTestLabels" : ["full-ci", "improvement"]
+}
