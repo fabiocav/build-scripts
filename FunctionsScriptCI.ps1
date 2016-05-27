@@ -35,7 +35,7 @@ Function ShouldEnableEndToEnd()
             Write-Host "Full CI triggered by PR label(s): " -ForegroundColor Cyan -NoNewline
             Write-Host ($labelMatches -join ", ")  -ForegroundColor Green
 
-
+            return $true
         }
      }
 
