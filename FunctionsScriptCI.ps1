@@ -14,7 +14,7 @@ Function ShouldEnableEndToEnd()
      {
        Write-Host "Full CI triggered by user: " -ForegroundColor Cyan -NoNewline
        Write-Host $env:APPVEYOR_REPO_COMMIT_AUTHOR -ForegroundColor Green
-       return True
+       return $true
      }
      else
      {
@@ -31,10 +31,10 @@ Function ShouldEnableEndToEnd()
             Write-Host ($labelMatches -join ", ")  -ForegroundColor Green
         }
 
-        return true
+        return $true
      }
 
-     return False
+     return $false
 }
 
 # Set path to include PHP, Python and F#
@@ -45,7 +45,6 @@ if ($env:APPVEYOR_PULL_REQUEST_NUMBER)
 {
     Write-Host "Building Pull Request #"$env:APPVEYOR_PULL_REQUEST_NUMBER -ForegroundColor Gray
     
-    # First check if we're dealing with one of our knwon users
     if (ShouldEnableEndToEnd)
     {
         EnableEndToEndTests
